@@ -1,0 +1,31 @@
+{
+  "name": "meal-planner",
+  "version": "1.0.0",
+  "description": "Meal planner built on Node, Express, MongoDB, React and Typescript",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "NODE_ENV=development && DEBUG=express:* && tsc --project tsconfig.json && webpack && node server.js",
+    "build": "npm install && tsc --project tsconfig.json && webpack",
+    "server": "node server.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://giancoppola@github.com/giancoppola/meal-planner.git"
+  },
+  "author": "Gian Coppola",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/giancoppola/meal-planner/issues"
+  },
+  "homepage": "https://github.com/giancoppola/meal-planner#readme",
+  "devDependencies": {
+    "express": "^4.21.0",
+    "mongoose": "^8.6.3",
+    "nodemon": "^3.1.5",
+    "typescript": "^5.6.2",
+    "webpack": "^5.94.0",
+    "@types/express": "^4.17.21"
+  }
+}
