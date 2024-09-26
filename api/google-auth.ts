@@ -41,15 +41,17 @@ const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
 
 // Passport Setup End
 
-router.get("/auth/google", passport.authenticate('google', { scope: ['profile'] }));
+// Authentication route for logging in via Google oAuth
+router.get("/auth/google", passport.authenticate('google', { scope: ['profile', 'email'] }));
 
+// Authentication callback route for when google is done on it's end
 router.get("/auth/google/callback",
-    passport.authenticate('google', { successRedirect: '/isloggedin', failureRedirect: '/auth/google/failure' })
-    // ,
-    // (req: Request, res: Response) => {
-    //     // Only used on successful authentication
-    //     res.status(200).redirect('/')
-    // }
+    passport.authenticate('google',
+        {
+            successRedirect: '/isloggedin',
+            failureRedirect: '/auth/google/failure'
+        }
+    )
 );
 
 router.get("/auth/google/failure", (req: Request, res: Response, next: NextFunction) => {
@@ -58,7 +60,7 @@ router.get("/auth/google/failure", (req: Request, res: Response, next: NextFunct
 })
 
 router.get("/isloggedin", isLoggedIn, (req: Request, res: Response) => {
-    res.send(`hello ${req.user ? (req.user as Profile).displayName : null}!`)
+    res.send(`hello ${req.user ? `${(req.user as Profile).displayName}, ${(req.user as Profile).emails![0].value}, <img src="${(req.user as Profile).photos![0].value.replace("s96-c", "s400")}" />` : null}!`)
 })
 
 router.get("/logout", (req: Request, res: Response) => {

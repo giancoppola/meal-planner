@@ -33,20 +33,19 @@ var isLoggedIn = function (req, res, next) {
     req.user ? next() : res.sendStatus(401);
 };
 // Passport Setup End
-exports.router.get("/auth/google", passport.authenticate('google', { scope: ['profile'] }));
-exports.router.get("/auth/google/callback", passport.authenticate('google', { successRedirect: '/isloggedin', failureRedirect: '/auth/google/failure' })
-// ,
-// (req: Request, res: Response) => {
-//     // Only used on successful authentication
-//     res.status(200).redirect('/')
-// }
-);
+// Authentication route for logging in via Google oAuth
+exports.router.get("/auth/google", passport.authenticate('google', { scope: ['profile', 'email'] }));
+// Authentication callback route for when google is done on it's end
+exports.router.get("/auth/google/callback", passport.authenticate('google', {
+    successRedirect: '/isloggedin',
+    failureRedirect: '/auth/google/failure'
+}));
 exports.router.get("/auth/google/failure", function (req, res, next) {
     res.send("Google authentication failed - redirecting to homepage");
     setTimeout(function () { res.redirect('/'); }, 2000);
 });
 exports.router.get("/isloggedin", isLoggedIn, function (req, res) {
-    res.send("hello ".concat(req.user ? req.user.displayName : null, "!"));
+    res.send("hello ".concat(req.user ? "".concat(req.user.displayName, ", ").concat(req.user.emails[0].value, ", <img src=\"").concat(req.user.photos[0].value.replace("s96-c", "s400"), "\" />") : null, "!"));
 });
 exports.router.get("/logout", function (req, res) {
     req.logout(function (err) {
