@@ -14,13 +14,11 @@ var emojiArr = ['🍕', '🍔', '🍟', '🌯', '🌮'];
 setInterval(function () {
     var pageWidth = window.innerWidth;
     var min = -20;
+    var max = 20;
     var newEmoji = document.createElement('p');
-    newEmoji.innerHTML = emojiArr[(0, tools_1.getRandomIntInclusive)(0, emojiArr.length)];
+    newEmoji.innerHTML = emojiArr[(0, tools_1.getRandomIntArray)(0, emojiArr.length)];
     newEmoji.classList.add("floating-emoji");
-    newEmoji.style.left = (0, tools_1.getRandomIntInclusive)(min, pageWidth).toString();
-    newEmoji.style.top = min.toString();
+    newEmoji.style.left = (0, tools_1.appendPx)((0, tools_1.getRandomIntArray)(min, pageWidth + max).toString());
+    newEmoji.style.top = (0, tools_1.appendPx)(min.toString());
     document.body.appendChild(newEmoji);
-    while (newEmoji.style.left < window.innerHeight.toString()) {
-        newEmoji.style.left = parseInt(newEmoji.style.left);
-    }
 }, 2000);

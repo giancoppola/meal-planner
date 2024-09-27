@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot, Root } from "react-dom/client";
 import { Typography, Box, Button } from "@mui/material";
-import { getRandomIntInclusive } from "./tools";
+import { getRandomIntArray, appendPx } from "./tools";
 
 const App = () => {
     return (
@@ -23,13 +23,11 @@ const emojiArr: Array<string> = ['🍕', '🍔', '🍟', '🌯', '🌮'];
 setInterval(() => {
     let pageWidth: number = window.innerWidth;
     let min: number = -20;
+    let max: number = 20;
     let newEmoji = document.createElement('p');
-    newEmoji.innerHTML = emojiArr[getRandomIntInclusive(0, emojiArr.length)];
+    newEmoji.innerHTML = emojiArr[getRandomIntArray(0, emojiArr.length)];
     newEmoji.classList.add("floating-emoji");
-    newEmoji.style.left = getRandomIntInclusive(min, pageWidth).toString();
-    newEmoji.style.top = min.toString();
+    newEmoji.style.left = appendPx(getRandomIntArray(min, pageWidth+max).toString());
+    newEmoji.style.top = appendPx(min.toString());
     document.body.appendChild(newEmoji);
-    while(newEmoji.style.left < window.innerHeight.toString()) {
-        newEmoji.style.left = parseInt(newEmoji.style.left)
-    }
 }, 2000)
