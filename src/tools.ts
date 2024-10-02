@@ -13,3 +13,7 @@ export const getRandomIntArray = (min: number, max: number) => {
 export const appendPx = (word: string): string => {
   return word + 'px';
 }
+
+export const appendDeg = (word: string): string => {
+  return word + "deg";
+}

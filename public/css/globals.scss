@@ -1,8 +1,9 @@
 body {
     margin: 0;
+    overflow: hidden; // Needed for emoji animation
 }
 
-.blue-purple-gradient {
+.blue-purple-gradient-bg {
     background: hsla(239, 100%, 86%, 1);
     background: linear-gradient(135deg, hsla(239, 100%, 86%, 1) 0%, hsla(187, 100%, 91%, 1) 100%);
     background: -moz-linear-gradient(135deg, hsla(239, 100%, 86%, 1) 0%, hsla(187, 100%, 91%, 1) 100%);
@@ -14,4 +15,5 @@ body {
     font-size: 3rem;
     opacity: .6;
     margin: 0;
+    pointer-events: none;
 }

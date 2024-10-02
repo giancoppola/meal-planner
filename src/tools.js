@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.appendPx = exports.getRandomIntArray = exports.getRandomIntInclusive = void 0;
+exports.appendDeg = exports.appendPx = exports.getRandomIntArray = exports.getRandomIntInclusive = void 0;
 var getRandomIntInclusive = function (min, max) {
     var minCeiled = Math.ceil(min);
     var maxFloored = Math.floor(max);
@@ -17,3 +17,7 @@ var appendPx = function (word) {
     return word + 'px';
 };
 exports.appendPx = appendPx;
+var appendDeg = function (word) {
+    return word + "deg";
+};
+exports.appendDeg = appendDeg;

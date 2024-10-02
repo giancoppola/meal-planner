@@ -1,16 +1,18 @@
 import { StrictMode } from "react";
 import { createRoot, Root } from "react-dom/client";
 import { Typography, Box, Button } from "@mui/material";
-import { getRandomIntArray, appendPx } from "./tools";
+import { getRandomIntArray, appendPx, appendDeg } from "./tools";
 
 const App = () => {
     return (
         <StrictMode>
-            <Box display='flex' flexDirection='column' justifyContent='center' alignItems='center'
-            gap='2rem' height='100dvh' width='100dvw' className='blue-purple-gradient'>
-                <Typography variant="h1" fontWeight='bolder'>Meal Planner</Typography>
-                <Button href="/auth/google" variant='contained'>Log in with Google</Button>
-                <Button href="/isloggedin" variant='contained'>Try in Sandbox Mode</Button>
+            <Box display='flex' justifyContent='center' height='100dvh' width='100dvw' className='blue-purple-gradient-bg'>
+                <Box display='flex' flexDirection='column' justifyContent='center'
+                alignItems='center' gap='2rem' zIndex='1'>
+                    <Typography variant="h1" fontWeight='bolder'>Meal Planner</Typography>
+                    <Button href="/auth/google" variant='contained'>Log in with Google</Button>
+                    <Button href="/isloggedin" variant='contained'>Try in Sandbox Mode</Button>
+                </Box>
             </Box>
         </StrictMode>
     )
@@ -19,15 +21,32 @@ const App = () => {
 const root: Root = createRoot(document.getElementById("app")!);
 root.render(<App/>);
 
+// Emoji background animation
 const emojiArr: Array<string> = ['🍕', '🍔', '🍟', '🌯', '🌮'];
 setInterval(() => {
-    let pageWidth: number = window.innerWidth;
-    let min: number = -20;
-    let max: number = 20;
+    const min: number = -20;
+    const max: number = 20;
+    let start: number = -20;
     let newEmoji = document.createElement('p');
     newEmoji.innerHTML = emojiArr[getRandomIntArray(0, emojiArr.length)];
     newEmoji.classList.add("floating-emoji");
-    newEmoji.style.left = appendPx(getRandomIntArray(min, pageWidth+max).toString());
+    newEmoji.style.left = appendPx(getRandomIntArray(min, window.innerWidth+max).toString());
     newEmoji.style.top = appendPx(min.toString());
-    document.body.appendChild(newEmoji);
-}, 2000)
+    newEmoji.style.rotate = appendDeg('0');
+    // Check if page is currently active, else don't actually add the node and animate it
+    if (!document.hidden) {
+        document.body.appendChild(newEmoji);
+        let animation = setInterval(() => {
+            let height = parseInt(newEmoji.style.top);
+            let rotation = parseInt(newEmoji.style.rotate);
+            if (height < window.innerHeight) {
+                newEmoji.style.top = appendPx((height + 1).toString());
+                newEmoji.style.rotate = appendDeg((rotation + 1).toString());
+            }
+            else {
+                newEmoji.remove();
+                clearInterval(animation);
+            }
+        }, 10)
+    }
+}, 3000)

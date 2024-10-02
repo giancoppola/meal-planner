@@ -1,8 +1,9 @@
 body {
   margin: 0;
+  overflow: hidden;
 }
 
-.blue-purple-gradient {
+.blue-purple-gradient-bg {
   background: hsl(239, 100%, 86%);
   background: linear-gradient(135deg, hsl(239, 100%, 86%) 0%, hsl(187, 100%, 91%) 100%);
   background: -webkit-linear-gradient(135deg, hsl(239, 100%, 86%) 0%, hsl(187, 100%, 91%) 100%);
@@ -13,4 +14,5 @@ body {
   font-size: 3rem;
   opacity: 0.6;
   margin: 0;
+  pointer-events: none;
 }/*# sourceMappingURL=globals.css.map */
