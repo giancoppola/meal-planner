@@ -1,3 +1,12 @@
+// Variables
+
+$purple: #b8b9ff;
+$light-blue: #d1faff;
+$black: #1c2321;
+$white: #ffffff;
+$dark-blue: #3943b7;
+$green: #d7f171;
+
 body {
     margin: 0;
     overflow: hidden; // Needed for emoji animation
@@ -5,7 +14,7 @@ body {
 
 .blue-purple-gradient-bg {
     background: hsla(239, 100%, 86%, 1);
-    background: linear-gradient(135deg, hsla(239, 100%, 86%, 1) 0%, hsla(187, 100%, 91%, 1) 100%);
+    background: linear-gradient(135deg, hsl(239, 100%, 86%) 0%, hsl(187, 100%, 91%) 100%);
     background: -moz-linear-gradient(135deg, hsla(239, 100%, 86%, 1) 0%, hsla(187, 100%, 91%, 1) 100%);
     background: -webkit-linear-gradient(135deg, hsla(239, 100%, 86%, 1) 0%, hsla(187, 100%, 91%, 1) 100%);
 }
