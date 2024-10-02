@@ -73,3 +73,35 @@ export const palette = {
   darkBlue: '#3943b7',
   green: '#d7f171',
 }
+
+// Emoji background animation
+const emojiArr: Array<string> = ['🍕', '🍔', '🍟', '🌯', '🌮'];
+export const emojiAnimation = () => {
+  setInterval(() => {
+      const min: number = -20;
+      const max: number = 20;
+      let start: number = -20;
+      let newEmoji = document.createElement('p');
+      newEmoji.innerHTML = emojiArr[getRandomIntArray(0, emojiArr.length)];
+      newEmoji.classList.add("floating-emoji");
+      newEmoji.style.left = appendPx(getRandomIntArray(min, window.innerWidth+max).toString());
+      newEmoji.style.top = appendPx(min.toString());
+      newEmoji.style.rotate = appendDeg('0');
+      // Check if page is currently active, else don't actually add the node and animate it
+      if (!document.hidden) {
+          document.body.appendChild(newEmoji);
+          let animation = setInterval(() => {
+              let height = parseInt(newEmoji.style.top);
+              let rotation = parseInt(newEmoji.style.rotate);
+              if (height < window.innerHeight) {
+                  newEmoji.style.top = appendPx((height + 1).toString());
+                  newEmoji.style.rotate = appendDeg((rotation + 1).toString());
+              }
+              else {
+                  newEmoji.remove();
+                  clearInterval(animation);
+              }
+          }, 10)
+      }
+  }, 3000)
+}
